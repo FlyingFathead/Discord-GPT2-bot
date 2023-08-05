@@ -1,0 +1,5 @@
+asyncio
+requests
+numpy
+tensorflow
+discord.py
