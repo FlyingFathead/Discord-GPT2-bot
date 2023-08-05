@@ -1,5 +1,5 @@
 # Discord-GPT2-bot
-A simple Discord chatbot for local GPT-2 TensorFlow models
+A simple Discord API chatbot for local GPT-2 TensorFlow models.
 
 # Install
 1. Clone the repository
@@ -21,3 +21,8 @@ pip install -r requirements.txt
 5. Feel free to set up all the other possible replacement lists (for i.e. unwanted urls, words, strings, etc...)
 
 6. Enjoy! (?)
+
+# Notes
+This is mostly for humorous & testing purposes, although the code works perfectly fine when set up correctly, don't expect miracles out of the bot. Feel free to make your own functionalities as you deem fit.
+
+From [FlyingFathead](https://github.com/FlyingFathead/), in collaboration with ChaosWhisperer.
