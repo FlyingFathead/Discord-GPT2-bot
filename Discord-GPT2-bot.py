@@ -1,4 +1,4 @@
-# Discord-GPT2-Bot // v.1.10 // (c) 2023
+# Discord-GPT2-Bot // v.1.11 // (c) 2023
 # For local TensorFlow-based GPT-2 models
 # By FlyingFathead (w/ ChaosWhisperer)
 # https://github.com/FlyingFathead/
@@ -22,7 +22,7 @@ from collections import deque
 tf.disable_eager_execution()
 
 # Bot's version number
-BOT_VERSION = "1.10"
+BOT_VERSION = "1.11"
 
 # Greet on join (True/False)
 BOT_GREETING = True
@@ -32,7 +32,9 @@ USER_PREFIX = "User: "
 BOT_PREFIX = "Bot: "
 
 # model name & (sub-)directory
+# default is the model size (i.e. 112M, 124M, ...)
 model_name = '124M'
+# default is `models`
 models_dir = 'models'
 
 # context buffer for the bot
@@ -171,7 +173,7 @@ word_replacements = read_replacements_from_file(word_replacements_file_path)
 url_replacements = read_replacements_from_file(url_replacements_file_path)
 replacements = {**word_replacements, **url_replacements}
 
-# Alert .gif
+# Alert picture, .gif, message, can be anything...
 gif_url = "https://<gif-url>"
 
 # Generate a response from GPT-2
@@ -567,6 +569,7 @@ async def temp(ctx, new_temperature: float):
     else:
         await ctx.send(f"Sorry! That temperature is out of range. Please enter a value between 0 and 2.")
 
+""" # old
 @bot.command(name="gpt2")
 async def gpt2(ctx, *, user_input: str):
     replace_user_placeholder = ""
@@ -579,7 +582,7 @@ async def gpt2(ctx, *, user_input: str):
         response = await replace_user_placeholder(response, ctx.message)
         await ctx.send(response)
 
-sess, context, output, enc = initialize_gpt2()
+sess, context, output, enc = initialize_gpt2() """
 
 async def check_bot_connection():
     global BOT_VERSION
@@ -603,6 +606,9 @@ async def check_bot_connection():
                 await greeting_channel.send(f"**Greetings!** GPT-2 Discord Bot v{version_number} is online! [using checkpoint #{checkpoint_number}]")
                 print("[INFO] Greeting message has been sent.")
 
-bot.loop.create_task(check_bot_connection())
+# Initialize the GPT-2 model
+sess, context, output, enc = initialize_gpt2()
 
+# run the bot loop
+bot.loop.create_task(check_bot_connection())
 bot.run(BOT_TOKEN)
