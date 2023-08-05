@@ -1,4 +1,4 @@
-# Discord-GPT2-Bot // v.1.11 // (c) 2023
+# Discord-GPT2-Bot // v.1.15 // (c) 2023
 # For local TensorFlow-based GPT-2 models
 # By FlyingFathead (w/ ChaosWhisperer)
 # https://github.com/FlyingFathead/
@@ -18,11 +18,12 @@ import time
 from random import randint, choice
 from discord.ext import commands
 from collections import deque
+from datetime import datetime
 
 tf.disable_eager_execution()
 
 # Bot's version number
-BOT_VERSION = "1.11"
+BOT_VERSION = "1.15"
 
 # Greet on join (True/False)
 BOT_GREETING = True
@@ -34,6 +35,7 @@ BOT_PREFIX = "Bot: "
 # model name & (sub-)directory
 # default is the model size (i.e. 112M, 124M, ...)
 model_name = '124M'
+
 # default is `models`
 models_dir = 'models'
 
@@ -181,7 +183,12 @@ alert_prompt = "Bot: I received an alert "
 alert_response_text = "I received an alert "
 
 # set the bot's greeting / main output channel
-greeting_channel_name = "general"  # Replace this with the name of the desired channel, without the `#`
+# Replace this with the name of the desired channel, without the `#`
+greeting_channel_name = "general"
+
+# This is the channel where the bot is allowed to talk, if blank, bot can talk on all channels
+# allowed_channel = "general"
+allowed_channel = ""
 
 # Add this helper function to check if a user is authorized
 def is_user_authorized(user):
@@ -449,6 +456,16 @@ async def on_message(message):
 
     if message.author == bot.user:
         return
+
+    # Check if the message comes from the allowed channel
+    if allowed_channel and message.channel.name.lower() != allowed_channel.lower():
+        return
+
+    # Get the timestamp
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    # Print the input message with timestamp and user information to the console
+    print(f"[{timestamp}] Message from {message.author.name}: {message.content}")
 
     await bot.process_commands(message)
 
