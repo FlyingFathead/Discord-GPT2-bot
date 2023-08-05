@@ -32,7 +32,7 @@ Talk to the bot and it should respond.
 - `!maxrolls x` - max number of replies to a single line (x = number of replies)
 - `!odds x` - odds (probability) of the bot answering; 0 for 0%, 1 for 100%, use fractions like 0.5 = 50%
 - `!temp x` - set the model's temperature (between 0 and 2). Optimal for an optimized model usually hangs at around 1.
-- `!alert` - send out a test alert (for testing, debug etc purposes)
+- `!alert` - send out a test alert (for testing, debug purposes etc)
 
 # Notes
 This is mostly for humorous & testing purposes, although the code works perfectly fine when set up correctly, don't expect miracles out of the bot. Feel free to make your own functionalities as you deem fit.
